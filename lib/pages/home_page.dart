@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mboga/components/grocery_item_tile.dart';
 import 'package:mboga/models/cart_models.dart';
+import 'package:mboga/pages/cart_page.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,7 +12,10 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () =>
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return CartPage();
+        })),
         backgroundColor: Colors.black,
         child: Icon(
           Icons.shopping_bag,
@@ -38,7 +42,7 @@ class HomePage extends StatelessWidget {
               height: 20,
             ),
 
-            //Lets Order Fresh Items FRom Mboga
+            //Lets Order Fresh Items From Mboga
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 24.0,
@@ -92,6 +96,10 @@ class HomePage extends StatelessWidget {
                           itemPrice: value.shopItems[index][1],
                           imagePath: value.shopItems[index][2],
                           color: value.shopItems[index][3],
+                          onPressed: () {
+                            Provider.of<CartModel>(context, listen: false)
+                                .addItemToCart(index);
+                          },
                         );
                       });
                 },
